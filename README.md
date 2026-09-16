@@ -1,6 +1,6 @@
-# 🌠 Web Based Mini Projects
+# Dojo
 
-> Master UI Design & Code Logic with Engaging Interactive Projects
+> Dependency-light mini projects for training concepts across JS, TS, and more
 
 A comprehensive collection of **web-based mini projects** designed to help developers improve their skills in creating modern UIs and implementing clean, efficient code logic.  Perfect for beginners and intermediate developers looking to expand their portfolio.
 
