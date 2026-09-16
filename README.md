@@ -159,61 +159,6 @@ Most projects work immediately in your browser.  No npm packages or build tools 
 
 ---
 
-## 📚 Learning Path
-
-### 🟢 Beginner Level
-Start here if you're new to web development: 
-
-1. **Calculator** - Learn DOM manipulation
-2. **Palindrome Checker** - String manipulation & logic
-3. **Tic Tac Toe** - Game mechanics basics
-4. **Memory Cards Game** - Arrays & game state
-5. **Rock Paper Scissors** - Random logic & conditionals
-6. **Gradient Color Generator** - Color manipulation
-7. **Todo-api** - Basic CRUD operations
-8. **Password Generator** - Password Strength Algorithm
-
-### 🟡 Intermediate Level
-Build upon your fundamentals:
-
-1. **Flappy Bird** - Canvas API & physics
-2. **Snake** - Animation loops & collision detection
-3. **Typing Animation** - CSS animations & effects
-4. **Virtual Piano** - Event listeners & audio
-5. **Cars Showcase** - Gallery & responsiveness
-6. **Animated Pricing Cards** - Advanced CSS & transitions
-7. **Guess The Word** - API integration & game logic
-8. **State And Logic Engine** - Logic and state control
-9. **Virtualized List Engine** - DOM illusion
-10. **Search Query Engine** - Real search engine
-11. **Undo and Redo Engine** - Undo and Redo logic
-12. **Recreative System** - Sync dom with data
-13. **LRU Cache** - Caching strategy
-14. **Virtual Dom** - Fast instance of real DOM
-15. **Event Emitter** - Event manger
-16. **Sliding Window Analyzer** - Sliding window & Two pointers
-17. **File System Scanner** - Recursion & Tree Traversal (DFS/BFS) 
-18. **Courser Scheduler** - Graph Representation & Topological Sort (Kahn)
-19. **Priority Queue** - Priority Queue (Binary Heap)
-20. **Promise Scheduler** - Promise Scheduler (Concurrency Control)
-21. **State Machine** - State Machine (Finite State)
-22. **Dependency Container System** - Dependency Injection Container
-23. **Template Engine (AST)** - Lexer, Parser, CodeGen
-24. **Smart Search & Scroll** - Throttle & Debounce (Closures)
-25. **Global Message Bus** - Event Emitter (Pub‑Sub)
-26. **Form validation** - Middleware / Pipeline Pattern
-27. **Background Image Processor** - Job Queue (with Priorities & Retries) 
-28. **API Response Cache** - Caching Layer (Multi‑Strategy) 
-29. **Unified Query Runner** - SQL and MongoDB query builder 
-
-### 🔴 Advanced Level
-Challenge yourself: 
-
-1. **Smart Search Playground** - Complex algorithms & performance
-2. **Command Palette Engine** - Complex algorithms
-
----
-
 ## 💡 How to Use
 
 ### For Learning
@@ -320,7 +265,7 @@ Create a detailed `README.md` inside your project folder:
 
 ## 📁 Project Structure
 
-\`\`\`
+\`\`\`text 
 your-project-name/
 ├── index.html
 ├── style. css
