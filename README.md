@@ -46,7 +46,6 @@ A comprehensive collection of **web-based mini projects** designed to help devel
 | 5 | **Guess The Word** | Word Game | Intermediate | ✅ | [→](projects/Word-Guessing-Game) |
 | 6 | **Memory Cards Game** | Puzzle Game | Beginner | ✅ | [→](projects/Memory-Card-Game) |
 | 7 | **Ping Pong** | Puzzle Game | Beginner | ✅ | [→](projects/ping-pong) |
-| 8 | **Physics Sandbox** | Simulation | Advance | ⏳  | [→](projects/) |
 
 ### 🎨 UI/UX Projects
 
@@ -92,7 +91,6 @@ A comprehensive collection of **web-based mini projects** designed to help devel
 | 29 | **Background Image Processor** | Algorithm | Advance | ✅ | [→](projects/background-image-processor/) |
 | 30 | **API Response Cache** | Algorithm | Advance | ✅ | [→](projects/api-response-cache/) |
 | 31 | **Unified Query Runner** | Algorithm | Advance | ✅ | [→](projects/query-builder/) |
-| 32 | **Physic Engine** | Engine | Advance | ⏳  | [→](projects/) |
 
 ### ⚙️ Deep JavaScript Foundations (the bedrock)
 
