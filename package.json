@@ -1,5 +1,26 @@
 {
-  "dependencies": {
-    "motion": "^12.23.26"
-  }
+  "name": "web-based-mini-projects",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "new": "node scripts/new.mjs",
+    "tp": "node scripts/tp.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "^11.17.0",
+      "onFail": "download"
+    }
+  },
+  "devDependencies": {
+    "@inquirer/prompts": "^7.0.0",
+    "picocolors": "^1.1.0",
+    "execa": "^9.4.0"
+  },
+  "type": "module"
 }
