@@ -33,6 +33,25 @@ scripts.md # this file
 
 ---
 
+## Workspace
+
+This repo is a pnpm workspace. `pnpm-workspace.yaml` at the root lists `projects/*` as
+workspace packages, so all dependencies are installed once and hard-linked into
+`node_modules/` — no duplication across projects.
+
+Rules that follow from that:
+
+- **Install at the root.** `pnpm install` from the repo root, not inside a project.
+  Running it inside a project will warn (or fail with `--ignore-workspace-root-check`).
+- **One lockfile.** `pnpm-lock.yaml` at the root is committed. Project-level lockfiles
+  are not — don't commit them, and don't generate them.
+- **Declare your deps in your `package.json`.** pnpm links them into the project's
+  `node_modules/` even though the bytes live in the root store. Importing a package you
+  didn't declare will (correctly) fail.
+- **Templates don't use `postInstall: pnpm install`.** The wizard asks once, at the root,
+  after scaffolding. `postInstall` in a template is for non-Node setup only
+  (`cargo fetch`, `go mod download`, etc.).
+
 ## Install (one time)
 
 ```bash
@@ -77,9 +96,9 @@ mkdir -p templates/express-api
 
 ```json
 {
-"label": "Express API",
-"description": "Node + Express + TypeScript, minimal",
-"postInstall": "pnpm install"
+  "label": "Express API",
+  "description": "Node + Express + TypeScript, minimal",
+  "postInstall": "pnpm install"
 }
 ```
 
@@ -281,4 +300,6 @@ Ideas that fit the current seams without restructuring:
 - **`ls` script** — list projects with their `git status` and last commit.
 - **Windows-native `tp.cmd` shim** — lets `tp` work from `cmd.exe` too. Same repo file,
   no dotfile changes beyond `PATH`.
+  ```
+
   ```

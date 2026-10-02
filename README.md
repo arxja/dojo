@@ -102,8 +102,9 @@ the code, run it, break it, rebuild it.
 ## 🚀 Quick Start
 
 ```bash
-git clone https://github.com/arxja/web-based-mini-projects.git
-cd web-based-mini-projects
+git clone https://github.com/arxja/dojo.git
+cd dojo
+pnpm install # installs every project in the workspace at once
 ```
 
 Then open any project. Most are plain HTML/CSS/JS and need no build step:
@@ -114,6 +115,12 @@ cd projects/Flappy-Bird
 open index.html # macOS
 start index.html # Windows
 xdg-open index.html # Linux
+```
+
+Projects that use a bundler or a server (Vite, Next.js, Express, Bun) have their own
+README with the exact commands. Dependencies are shared at the workspace root, so
+installing a new project is always just `pnpm install` at the top.
+
 ```
 
 Projects that use a bundler or a server (Vite, Next.js, Express, Bun) have their own
@@ -174,3 +181,4 @@ Made with ❤️ by [arxja](https://github.com/arxja)
 **[⬆ Back to top](#dojo)**
 
 </div>
+```

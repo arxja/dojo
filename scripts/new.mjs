@@ -84,9 +84,16 @@ async function main() {
 
   console.log(pc.green(`✔ Created projects/${name}`));
 
+  const createdPackageJson = await fs
+    .access(path.join(dest, "package.json"))
+    .then(
+      () => true,
+      () => false,
+    );
+
   if (template.postInstall) {
     const run = await confirm({
-      message: `Run "${template.postInstall}"?`,
+      message: `Run "${template.postInstall}" inside projects/${name}?`,
       default: true,
     });
     if (run) {
@@ -96,6 +103,17 @@ async function main() {
         stdio: "inherit",
         shell: true,
       });
+    }
+  }
+
+  if (createdPackageJson && !template.postInstall) {
+    const run = await confirm({
+      message: 'Run "pnpm install" at the workspace root?',
+      default: true,
+    });
+    if (run) {
+      const { execa } = await import("execa");
+      await execa("pnpm", ["install"], { cwd: ROOT, stdio: "inherit" });
     }
   }
 }
