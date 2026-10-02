@@ -121,8 +121,6 @@ Projects that use a bundler or a server (Vite, Next.js, Express, Bun) have their
 README with the exact commands. Dependencies are shared at the workspace root, so
 installing a new project is always just `pnpm install` at the top.
 
-```
-
 Projects that use a bundler or a server (Vite, Next.js, Express, Bun) have their own
 README with the exact commands.
 
@@ -181,4 +179,3 @@ Made with ❤️ by [arxja](https://github.com/arxja)
 **[⬆ Back to top](#dojo)**
 
 </div>
-```
