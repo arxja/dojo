@@ -1,0 +1,5 @@
+{
+  "label": "Vanilla JS",
+  "description": "Vanilla JavaScript with a Vite dev server",
+  "postInstall": "pnpm install"
+}
