@@ -8,8 +8,8 @@
     "tp": "node scripts/tp.mjs"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Arash Jafari",
+  "license": "MIT",
   "devEngines": {
     "packageManager": {
       "name": "pnpm",
