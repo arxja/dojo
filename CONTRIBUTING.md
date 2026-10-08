@@ -296,9 +296,12 @@ Additional requirements per stack:
 - 🧪 A minimal test or smoke check (any stack).
 - 📸 A screenshot in the project README (web or GUI).
 
+---
+
 ### Project README template
 
-```markdown
+--Start of Tempate--
+
 # Project Name
 
 > A brief one-line description.
@@ -324,6 +327,7 @@ Pick the emoji that fits: 🎮 (game), 🎨 (UI/UX), 🔧 (utility), ⌨️ (CLI
 Open `index.html` in your browser. No installation required.
 
 ### Node / TypeScript
+
 ```bash
 pnpm install
 pnpm dev
@@ -355,9 +359,8 @@ project-name/
 ## 📝 License
 
 MIT
-```
 
----
+--End of Tempate--
 
 ## ➕ Adding a New Project
 
