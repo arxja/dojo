@@ -1,0 +1,5 @@
+{
+  "label": "React with TypeScript",
+  "description": "React application with TypeScript support and a Vite dev server",
+  "postInstall": "pnpm install"
+}
