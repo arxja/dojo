@@ -41,6 +41,7 @@ the code, run it, break it, rebuild it.
 | 2   | **Cars Showcase**            | Gallery   | Intermediate | ✅     | [→](projects/Cars)                     |
 | 3   | **Gradient Color Generator** | Tool      | Beginner     | ✅     | [→](projects/Gradient-Color-Generator) |
 | 4   | **Typing Animation**         | Effect    | Intermediate | ✅     | [→](projects/Text-Typing-Effect)       |
+| 5   | **Loading Animation**         | Component    | Intermediate |  ⏳    | [→](projects/)       |
 
 ### 🔧 Utilities
 
