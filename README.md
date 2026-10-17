@@ -42,6 +42,7 @@ the code, run it, break it, rebuild it.
 | 3   | **Gradient Color Generator** | Tool      | Beginner     | ✅     | [→](projects/Gradient-Color-Generator) |
 | 4   | **Typing Animation**         | Effect    | Intermediate | ✅     | [→](projects/Text-Typing-Effect)       |
 | 5   | **Loading Animation**         | Component    | Intermediate |  ⏳    | [→](projects/)       |
+| 6   | **Drag & Drop List**         | Component    | Intermediate |  ⏳    | [→](projects/)       |
 
 ### 🔧 Utilities
 
