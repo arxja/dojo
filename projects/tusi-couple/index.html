@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tusi Couple — Nasir al-Din al-Ṭusi</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+
+      body {
+        background: radial-gradient(
+          circle at 50% 44%,
+          #101722 0%,
+          #080b12 58%,
+          #04060a 100%
+        );
+        color: #cbd5e1;
+        font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+        overflow: hidden;
+      }
+
+      canvas {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        display: block;
+        cursor: pointer;
+      }
+
+      .title {
+        position: fixed;
+        top: 26px;
+        left: 30px;
+        pointer-events: none;
+        user-select: none;
+      }
+      .title h1 {
+        margin: 0;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: #e2e8f0;
+      }
+      .title p {
+        margin: 6px 0 0;
+        font-size: 10.5px;
+        letter-spacing: 0.14em;
+        color: rgba(148, 163, 184, 0.55);
+      }
+
+      .panel {
+        position: fixed;
+        left: 50%;
+        bottom: 22px;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        padding: 13px 22px;
+        border-radius: 15px;
+        background: rgba(13, 20, 32, 0.66);
+        border: 1px solid rgba(148, 163, 184, 0.14);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        font-size: 10.5px;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+        user-select: none;
+        box-shadow: 0 18px 50px -20px rgba(0, 0, 0, 0.9);
+      }
+
+      .field {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: rgba(148, 163, 184, 0.75);
+      }
+      .field .val {
+        min-width: 30px;
+        color: #e2e8f0;
+        font-variant-numeric: tabular-nums;
+      }
+
+      input[type="range"] {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 108px;
+        height: 3px;
+        border-radius: 3px;
+        background: rgba(148, 163, 184, 0.22);
+        outline: none;
+      }
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 13px;
+        height: 13px;
+        border-radius: 50%;
+        background: #e2e8f0;
+        cursor: pointer;
+        box-shadow: 0 0 10px rgba(125, 211, 252, 0.6);
+      }
+      input[type="range"]::-moz-range-thumb {
+        width: 13px;
+        height: 13px;
+        border: none;
+        border-radius: 50%;
+        background: #e2e8f0;
+        cursor: pointer;
+      }
+
+      .toggles {
+        display: flex;
+        gap: 7px;
+      }
+      button {
+        font: inherit;
+        letter-spacing: inherit;
+        text-transform: inherit;
+        padding: 5px 12px;
+        border-radius: 999px;
+        cursor: pointer;
+        color: rgba(148, 163, 184, 0.7);
+        background: transparent;
+        border: 1px solid rgba(148, 163, 184, 0.2);
+        transition:
+          background 0.18s,
+          color 0.18s,
+          border-color 0.18s;
+      }
+      button:hover {
+        border-color: rgba(148, 163, 184, 0.45);
+      }
+      button.on {
+        color: #07111c;
+        background: #7dd3fc;
+        border-color: #7dd3fc;
+      }
+
+      @media (max-width: 760px) {
+        .panel {
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 14px 18px;
+          width: calc(100% - 28px);
+          padding: 12px 16px;
+        }
+        input[type="range"] {
+          width: 76px;
+        }
+        .title {
+          top: 18px;
+          left: 18px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="scene"></canvas>
+
+    <header class="title">
+      <h1>Tusi Couple</h1>
+      <p>Naṣīr al-Dīn al-Ṭūsī · 13th century</p>
+    </header>
+
+    <div class="panel">
+      <label class="field">
+        Balls
+        <input id="balls" type="range" min="1" max="16" step="1" value="5" />
+        <span class="val" id="ballsVal">5</span>
+      </label>
+
+      <label class="field">
+        Speed
+        <input id="speed" type="range" min="0" max="260" step="1" value="100" />
+        <span class="val" id="speedVal">1.0×</span>
+      </label>
+
+      <div class="toggles">
+        <button data-toggle="circles" class="on">Circles</button>
+        <button data-toggle="spokes" class="on">Spokes</button>
+        <button data-toggle="track" class="on">Tracks</button>
+      </div>
+    </div>
+
+    <script>
+      (() => {
+        "use strict";
+
+        const TAU = Math.PI * 2;
+
+        const canvas = document.getElementById("scene");
+        const ctx = canvas.getContext("2d");
+
+        let W = 0,
+          H = 0;
+
+        function resize() {
+          const dpr = Math.min(window.devicePixelRatio || 1, 2);
+          W = canvas.clientWidth;
+          H = canvas.clientHeight;
+          canvas.width = Math.round(W * dpr);
+          canvas.height = Math.round(H * dpr);
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+
+        const state = {
+          theta: 0,
+          balls: 5,
+          speed: 1.0,
+          paused: false,
+          show: { circles: true, spokes: true, track: true },
+        };
+
+        const BASE_OMEGA = 1.15; // rad/s at 1.0×
+
+        /* ---------------------------------------------------------------
+     Geometry
+     ---------------------------------------------------------------
+     Outer radius R, inner radius r = R/2  (area = 1/4 of the outer).
+
+     Ball k (k = 0 … N-1):
+        centre angle   ψ_k = θ + 2πk/N        (balls evenly spread)
+        own rotation   β_k = −θ               (all roll at the same rate)
+        marked point   P_k = C_k + r·dir(β_k)
+
+     Because  ψ_k − β_k = 2θ + 2πk/N  …  the point P_k always lies on
+     the straight line through the centre at angle  α_k = πk/N  :
+
+        P_k = R·cos(θ + πk/N) · dir(πk/N)
+
+     So every ball gets its OWN diameter-shaped track, and the tracks
+     are fanned out over 180°.  Because the track directions and the
+     point phases both step by π/N, the picture is invariant under a
+     rotation of 2π/N followed by a time-lag of 2π/N — the whole
+     ensemble therefore *appears* to spin, even though each point only
+     ever slides back and forth along its own straight line.
+  ----------------------------------------------------------------*/
+
+        function render() {
+          ctx.clearRect(0, 0, W, H);
+
+          const cx = W / 2;
+          const cy = H / 2;
+          const R = Math.min(W, H) * 0.375;
+          const r = R / 2;
+          const N = state.balls;
+          const th = state.theta;
+
+          ctx.save();
+          ctx.translate(cx, cy);
+
+          /* ---- outer circle ------------------------------------------ */
+          ctx.beginPath();
+          ctx.arc(0, 0, R, 0, TAU);
+          ctx.strokeStyle = "rgba(226, 232, 240, 0.55)";
+          ctx.lineWidth = 1.6;
+          ctx.stroke();
+
+          /* ---- locus of the ball centres (radius R/2) ----------------- */
+          if (state.show.circles) {
+            ctx.save();
+            ctx.setLineDash([3, 8]);
+            ctx.beginPath();
+            ctx.arc(0, 0, r, 0, TAU);
+            ctx.strokeStyle = "rgba(148, 163, 184, 0.20)";
+            ctx.lineWidth = 1;
+            ctx.stroke();
+            ctx.restore();
+          }
+
+          /* ---- the fanned-out straight tracks ------------------------- */
+          if (state.show.track) {
+            for (let k = 0; k < N; k++) {
+              const a = (Math.PI * k) / N;
+              const dx = Math.cos(a) * R;
+              const dy = Math.sin(a) * R;
+              const hue = (k * 360) / N;
+
+              ctx.beginPath();
+              ctx.moveTo(-dx, -dy);
+              ctx.lineTo(dx, dy);
+              ctx.strokeStyle = `hsla(${hue}, 80%, 64%, 0.13)`;
+              ctx.lineWidth = 1;
+              ctx.stroke();
+            }
+          }
+
+          /* ---- balls -------------------------------------------------- */
+          for (let k = 0; k < N; k++) {
+            const hue = (k * 360) / N;
+            const col = (a) => `hsla(${hue}, 88%, 66%, ${a})`;
+
+            const psi = th + (k * TAU) / N; // centre angle
+            const alpha = (Math.PI * k) / N; // track direction
+
+            // ball centre
+            const bx = r * Math.cos(psi);
+            const by = r * Math.sin(psi);
+
+            // marked point on the ball rim, sliding along its own track
+            const d = R * Math.cos(th + alpha);
+            const px = d * Math.cos(alpha);
+            const py = d * Math.sin(alpha);
+
+            // ball outline
+            if (state.show.circles) {
+              ctx.beginPath();
+              ctx.arc(bx, by, r, 0, TAU);
+              ctx.strokeStyle = col(0.26);
+              ctx.lineWidth = 1.2;
+              ctx.stroke();
+            }
+
+            // radial spoke: origin -> ball centre (this is what "spins")
+            if (state.show.spokes) {
+              ctx.beginPath();
+              ctx.moveTo(0, 0);
+              ctx.lineTo(bx, by);
+              ctx.strokeStyle = col(0.11);
+              ctx.lineWidth = 1;
+              ctx.stroke();
+            }
+
+            // the ball's own radius, down to its marked point
+            if (state.show.spokes) {
+              ctx.beginPath();
+              ctx.moveTo(bx, by);
+              ctx.lineTo(px, py);
+              ctx.strokeStyle = col(0.3);
+              ctx.lineWidth = 1.1;
+              ctx.stroke();
+            }
+
+            // the marked point
+            ctx.beginPath();
+            ctx.arc(px, py, 4.6, 0, TAU);
+            ctx.fillStyle = col(1);
+            ctx.shadowColor = col(0.85);
+            ctx.shadowBlur = 18;
+            ctx.fill();
+            ctx.shadowBlur = 0;
+          }
+
+          ctx.restore();
+        }
+
+        /* ---- animation loop ------------------------------------------- */
+        let last = performance.now();
+
+        function loop(now) {
+          const dt = Math.min((now - last) / 1000, 0.05);
+          last = now;
+
+          if (!state.paused) {
+            state.theta += BASE_OMEGA * state.speed * dt;
+            if (state.theta > TAU) state.theta -= TAU;
+          }
+
+          render();
+          requestAnimationFrame(loop);
+        }
+
+        /* ---- UI -------------------------------------------------------- */
+        const ballsEl = document.getElementById("balls");
+        const ballsVal = document.getElementById("ballsVal");
+        const speedEl = document.getElementById("speed");
+        const speedVal = document.getElementById("speedVal");
+
+        ballsEl.addEventListener("input", () => {
+          state.balls = +ballsEl.value;
+          ballsVal.textContent = state.balls;
+        });
+
+        speedEl.addEventListener("input", () => {
+          state.speed = speedEl.value / 100;
+          speedVal.textContent = state.speed.toFixed(1) + "×";
+        });
+
+        document.querySelectorAll("[data-toggle]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const key = btn.dataset.toggle;
+            state.show[key] = !state.show[key];
+            btn.classList.toggle("on", state.show[key]);
+          });
+        });
+
+        canvas.addEventListener("click", () => {
+          state.paused = !state.paused;
+        });
+        window.addEventListener("keydown", (e) => {
+          if (e.code === "Space") {
+            e.preventDefault();
+            state.paused = !state.paused;
+          }
+        });
+
+        /* ---- boot ------------------------------------------------------ */
+        window.addEventListener("resize", resize);
+        resize();
+        requestAnimationFrame(loop);
+      })();
+    </script>
+  </body>
+</html>
