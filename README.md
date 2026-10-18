@@ -41,7 +41,7 @@ the code, run it, break it, rebuild it.
 | 2   | **Cars Showcase**            | Gallery   | Intermediate | ✅     | [→](projects/Cars)                     |
 | 3   | **Gradient Color Generator** | Tool      | Beginner     | ✅     | [→](projects/Gradient-Color-Generator) |
 | 4   | **Typing Animation**         | Effect    | Intermediate | ✅     | [→](projects/Text-Typing-Effect)       |
-| 5   | **Tusi Couple**         | Component    | Intermediate |  ✅    | [→](projects/tusi-couple/)       |
+| 5   | **Tusi Couple**         | Geometry    | Intermediate |  ✅    | [→](projects/tusi-couple/)       |
 | 6   | **Drag & Drop List**         | Component    | Intermediate |  ⏳    | [→](projects/)       |
 
 ### 🔧 Utilities
